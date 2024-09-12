@@ -1,0 +1,41 @@
+﻿<h3>Persons</h3>
+@page "/person"
+@rendermode InteractiveServer
+
+<ul>
+    <h1>Alle personen</h1>
+    @foreach(var per in personen) 
+    {
+        <li>id: @per.PersonId</li>
+        <li>Voornaam:@per.FirstName</li>
+        <li>Achternaam: @per.LastName</li>
+        <li>Leeftijd: @per.Age</li>
+    }
+</ul>
+    <input @bind="newPersonFirstName" /><br>
+    <input @bind="newPersonLastName" /><br>
+    <input @bind="newPersonAge" /><br>
+
+    
+    <button @onclick="AddPerson">Add todo</button>
+
+@code {
+
+    private List<Person>personen = new();
+    string newPersonFirstName = "";
+    string newPersonLastName = "";
+    int newPersonAge = 0; 
+    
+    
+
+    void AddPerson() 
+    {
+        if(!string.IsNullOrWhiteSpace(newPersonFirstName) || (!string.IsNullOrWhiteSpace(newPersonLastName)))
+        {
+            personen.Add(new Person{FirstName = newPersonFirstName,LastName = newPersonLastName, Age = newPersonAge});
+            newPersonFirstName = String.Empty;
+            newPersonLastName = String.Empty;
+            
+        }
+    }
+}
